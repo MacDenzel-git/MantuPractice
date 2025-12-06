@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MantuPractice/MantuPractice.csproj" />
+  <Project Path="MantuWebUI/MantuWebUI.csproj" />
+</Solution>
