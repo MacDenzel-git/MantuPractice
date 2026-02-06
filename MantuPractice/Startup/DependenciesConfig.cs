@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using MantuPractice.Application.CartServiceContainer;
 using MantuPractice.Application.GenericCrudService;
 using MantuPractice.Domain.Models;
 using MantuPractice.Infrastructure;
@@ -15,13 +15,13 @@ namespace MantuPractice.Startup
             builder.Services.AddControllers();
             builder.Services.AddCorsServices();
             builder.Services.AddOpenAPIServices();
-         
-
-
         }
 
         public static void AddMantuServices(this IServiceCollection services)
         {
+            services.AddScoped<ICartService, CartService>();
+           
+
             services.AddScoped(typeof(ICrudService<AddressDTO>), typeof(CrudService<Domain.Models.Address, AddressDTO>));
             services.AddScoped(typeof(ICrudService<AuditLogDTO>), typeof(CrudService<AuditLog, AuditLogDTO>));
             services.AddScoped(typeof(ICrudService<BrandDTO>), typeof(CrudService<Brand, BrandDTO>));

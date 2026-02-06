@@ -29,6 +29,8 @@ public partial class Product
 
     public virtual Brand? Brand { get; set; }
 
+    public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();

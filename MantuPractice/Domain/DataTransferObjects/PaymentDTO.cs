@@ -3,22 +3,12 @@ using System.Collections.Generic;
 
 namespace MantuPractice.Domain.Models;
 
-public partial class PaymentDTO
+public class PaymentDTO
 {
-    public int PaymentId { get; set; }
-
+    public int Id { get; set; }
     public int OrderId { get; set; }
-
-    public DateTime PaymentDate { get; set; }
-
     public decimal Amount { get; set; }
-
-    public string? Provider { get; set; }
-
-    public string? ProviderReference { get; set; }
-
-    public string? Status { get; set; }
-
-    public string? RawResponse { get; set; }
-
+    public string Provider { get; set; } // PayPal, Airtel Money, Bank, Visa etc.
+    public string Status { get; set; } // Pending, Paid, Failed
+    public DateTime CreatedAt { get; set; }
 }

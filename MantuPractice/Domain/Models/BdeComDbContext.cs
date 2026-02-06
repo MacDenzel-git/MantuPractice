@@ -21,6 +21,10 @@ public partial class BdeComDbContext : DbContext
 
     public virtual DbSet<Brand> Brands { get; set; }
 
+    public virtual DbSet<Cart> Carts { get; set; }
+
+    public virtual DbSet<CartItem> CartItems { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Courier> Couriers { get; set; }
@@ -93,6 +97,28 @@ public partial class BdeComDbContext : DbContext
 
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.Name).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__3214EC075E4EB5E2");
+
+            entity.ToTable("Cart");
+        });
+
+        modelBuilder.Entity<CartItem>(entity =>
+        {
+            entity.HasKey(e => e.CartItemId).HasName("PK__CartItem__3214EC07413ACB88");
+
+            entity.ToTable("CartItem");
+
+            entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.Cart).WithMany(p => p.Items)
+                .HasForeignKey(d => d.CartId)
+                .HasConstraintName("FK_CartItem_Cart");
+
+            
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -199,13 +225,12 @@ public partial class BdeComDbContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__9B556A385A4A68BB");
+            entity.HasKey(e => e.Id).HasName("PK__Payments__9B556A385A4A68BB");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PaymentDate).HasDefaultValueSql("(sysutcdatetime())");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(sysutcdatetime())");
             entity.Property(e => e.Provider).HasMaxLength(50);
-            entity.Property(e => e.ProviderReference).HasMaxLength(200);
-            entity.Property(e => e.Status).HasMaxLength(50);
+             entity.Property(e => e.Status).HasMaxLength(50);
 
             entity.HasOne(d => d.Order).WithMany(p => p.Payments)
                 .HasForeignKey(d => d.OrderId)

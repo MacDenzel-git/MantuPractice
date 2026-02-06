@@ -24,6 +24,13 @@ namespace MantuPractice.Application.Mappings
             CreateMap<Size, SizeDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Warehouse, WarehouseDTO>().ReverseMap();
+            CreateMap<CartItem, CartItemDto>()
+             .ForMember(d => d.ProductName, o => o.MapFrom(s => s.Variant.Product.Name))
+             .ReverseMap()
+             .ForMember(d => d.Variant, o => o.Ignore())   // avoid cycles
+             .ForMember(d => d.Cart, o => o.Ignore());
+            CreateMap<Cart, CartDto>()
+                .ForMember(d => d.Items, o => o.MapFrom(s => s.Items));
         }
     }
 }

@@ -1,4 +1,3 @@
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using MantuPractice.Domain.Models;
 using MantuPractice.Startup;
 using Microsoft.EntityFrameworkCore;
